@@ -1,0 +1,12 @@
+content:
+  application/json:
+    schema:
+      required:
+        - strategy
+        - uzumAccountShopItemId
+      properties:
+        uzumAccountShopItemId:
+          type: string
+          format: uuid
+        strategy:
+          $ref: ../schemas/Strategy.yaml

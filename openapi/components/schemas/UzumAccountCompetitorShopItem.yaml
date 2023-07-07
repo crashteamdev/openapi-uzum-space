@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+  productId:
+    type: integer
+    format: int64
+  skuId:
+    type: integer
+    format: int64
+  price:
+    $ref: ./MoneyAmount.yaml
+  availableAmount:
+    type: integer
+    format: int64
+  photoKey:
+    type: string
+

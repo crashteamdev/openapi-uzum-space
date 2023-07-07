@@ -1,0 +1,22 @@
+get:
+  summary: Информации о подписке пользователя
+  operationId: getUserSubscription
+  tags:
+    - subscription
+  parameters:
+    - $ref: ../components/parameters/requestId.yaml
+  responses:
+    '200':
+      description: Получена информация о подписке пользователя
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/AccountSubscription.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Аккаунты не найдены

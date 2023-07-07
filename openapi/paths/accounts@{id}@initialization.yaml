@@ -1,0 +1,19 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+patch:
+  summary: Запустить работу по инициализации аккаунта Uzum
+  operationId: patchUzumAccountInitializationState
+  tags:
+    - account
+  responses:
+    '200':
+      description: Инициализация аккаунта запущена в работу
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Аккаунт не найден

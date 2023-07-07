@@ -1,0 +1,17 @@
+content:
+  application/json:
+    schema:
+      required:
+        - shopItemRef
+      properties:
+        shopItemRef:
+          $ref: ../schemas/ShopItemRef.yaml
+        url:
+          description: link to the product on Uzum
+          type: string
+        competitorProductId:
+          type: integer
+          format: int64
+        competitorSkuId:
+          type: integer
+          format: int64

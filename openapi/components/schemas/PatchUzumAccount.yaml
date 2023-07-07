@@ -1,0 +1,11 @@
+type: object
+required:
+  - login
+  - password
+properties:
+  login:
+    description: Логин пользователя Uzum.
+    type: string
+  password:
+    description: Пароль пользователя Uzum.
+    type: string

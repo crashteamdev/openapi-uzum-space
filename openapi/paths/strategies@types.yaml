@@ -1,0 +1,20 @@
+get:
+  summary: Получить типы стратегий
+  operationId: getStrategyTypes
+  tags:
+    - strategy
+  responses:
+    '200':
+      description: Получена информация о типах стратегий
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/StrategyType.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: CrashTeam Uzum Repricer API
+  description:
+    $ref: './docs/api.md'
+  termsOfService: http://marketdb.ru/terms-of-use/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: 'https://{subdomain}.marketdb.ru/{version}'
+    variables:
+      subdomain:
+        default: napi
+      version:
+        enum:
+          - v1
+        default: v1
+security:
+  - bearer: []
+paths:
+  '/accounts':
+    $ref: './paths/accounts.yaml'
+  '/accounts/{id}':
+    $ref: './paths/accounts@{id}.yaml'
+  '/accounts/{id}/update':
+    $ref: './paths/accounts@{id}@update.yaml'
+  '/accounts/{id}/shops':
+    $ref: './paths/accounts@{id}@shops.yaml'
+  '/accounts/{id}/monitor':
+    $ref: './paths/accounts@{id}@monitor.yaml'
+  '/accounts/{id}/initialization':
+    $ref: './paths/accounts@{id}@initialization.yaml'
+  '/accounts/{id}/price-history':
+    $ref: './paths/accounts@{id}@price-history.yaml'
+  '/accounts/{id}/items/{shopItemId}':
+    $ref: './paths/accounts@{id}@items@{shopItemId}@.yaml'
+  '/accounts/{id}/shops/{shopId}/items':
+    $ref: './paths/accounts@{id}@shops@{shopId}@items.yaml'
+  '/accounts/{id}/shops/{shopId}/pool-items':
+    $ref: './paths/accounts@{id}@shops@{shopId}@pool-items.yaml'
+  '/accounts/{id}/pool-items':
+    $ref: './paths/accounts@{id}@shop-item-pool.yaml'
+  '/accounts/pool-items-count':
+    $ref: './paths/accounts@shop-item-pool-count.yaml'
+  '/accounts/{id}/shop-item-competitor':
+    $ref: './paths/accounts@{id}@shop-item-competitor.yaml'
+  '/accounts/{id}/shops/{shopId}/items/{shopItemId}/competitor-items':
+    $ref: './paths/accounts@{id}@shops@{shopId}items@{shopItemId}@competitor-items.yaml'
+  '/accounts/{id}/shops/{shopId}/items/{shopItemId}/similar':
+    $ref: './paths/accounts@{id}@shops@{shopId}@items@{shopItemId}@similar.yaml'
+  '/user/subscription':
+    $ref: './paths/user@subscription.yaml'
+  '/subscriptions':
+    $ref: './paths/subscriptions.yaml'
+  '/payment/subscription':
+    $ref: './paths/payment-subscription.yaml'
+  '/similar/products':
+    $ref: './paths/similar-products.yaml'
+  '/strategies/types':
+    $ref: './paths/strategies@types.yaml'
+  '/strategies/{shopItemStrategyId}':
+    $ref: './paths/strategies@{shopItemStrategyId}.yaml'
+  '/strategies':
+    $ref: './paths/strategies.yaml'
+
+components:
+  securitySchemes:
+    bearer:
+      $ref: './components/security-schemes/Bearer.yaml'

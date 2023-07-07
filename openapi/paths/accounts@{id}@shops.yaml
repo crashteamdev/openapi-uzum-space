@@ -1,0 +1,25 @@
+get:
+  summary: Получение списка магазинов аккаунта
+  operationId: getUzumAccountShops
+  tags:
+    - shop
+  parameters:
+    - $ref: ../components/parameters/requestId.yaml
+    - $ref: ../components/parameters/uzumAccountId.yaml
+  responses:
+    '200':
+      description: Получен список магазинов Uzum для указанного аккаунта
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/UzumAccountShop.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Аккаунты не найдены

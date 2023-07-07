@@ -1,0 +1,58 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+get:
+  summary: Получить данные аккаунта Uzum
+  operationId: getUzumAccount
+  tags:
+    - account
+  responses:
+    '200':
+      description: Получены данные аккаунта Uzum
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UzumAccount.yaml
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Аккаунт не найден
+patch:
+  summary: Обновить данные аккаунта Uzum
+  operationId: patchUzumAccount
+  tags:
+    - account
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PatchUzumAccount.yaml
+  responses:
+    '200':
+      description: Данные аккаунта Uzum обновлены.
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Аккаунт не найден
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+delete:
+  summary: Удалить аккаунт Uzum
+  operationId: deleteUzumAccount
+  tags:
+    - account
+  responses:
+    '204':
+      description: Аккаунт Uzum удален.
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

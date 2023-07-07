@@ -1,0 +1,24 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+patch:
+  summary: Переключить состояние мониторинга аккаунта Uzum
+  operationId: patchUzumAccountMonitoringState
+  tags:
+    - account
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PatchUzumAccountMonitoringState.yaml
+  responses:
+    '200':
+      description: Состояние мониторинга изменено
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Аккаунт не найден

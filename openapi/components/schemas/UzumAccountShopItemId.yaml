@@ -1,0 +1,4 @@
+description: Идентификатор Uzum товара в системе
+type: string
+format: uuid
+readOnly: true

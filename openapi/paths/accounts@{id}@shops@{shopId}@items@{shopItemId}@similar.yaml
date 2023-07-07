@@ -1,0 +1,35 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+  - $ref: ../components/parameters/uzumAccountShopId.yaml
+  - $ref: ../components/parameters/uzumAccountShopItemId.yaml
+get:
+  summary: Получение списка возможных конкурентных товаров
+  operationId: getUzumAccountShopItemSimilar
+  tags:
+    - item
+  responses:
+    '200':
+      description: Получен список возможных конкурентных товаров
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/SimilarItem.yaml
+      headers:
+        Pagination-Total:
+          $ref: ../components/headers/Pagination-Total.yaml
+        Pagination-Limit:
+          $ref: ../components/headers/Pagination-Limit.yaml
+        Pagination-Offset:
+          $ref: ../components/headers/Pagination-Offset.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Товары не найдены
+

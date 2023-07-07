@@ -1,0 +1,22 @@
+get:
+  summary: Получение списка подписок
+  operationId: getSubscriptions
+  tags:
+    - subscription
+  parameters:
+    - $ref: ../components/parameters/requestId.yaml
+  responses:
+    '200':
+      description: Получен список подписок
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/Subscription.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml

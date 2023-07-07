@@ -1,0 +1,6 @@
+name: skuId
+in: query
+description: Product item sku id.
+schema:
+  type: integer
+  format: int64

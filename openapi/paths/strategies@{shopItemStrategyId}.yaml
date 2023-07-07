@@ -1,0 +1,62 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountShopItemStrategyId.yaml
+get:
+  summary: Получить данные по стратегии
+  operationId: getStrategy
+  tags:
+    - strategy
+  responses:
+    '200':
+      description: Получены данные стратегии
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UzumAccountShopItemStrategy.yaml
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Стратегия не найдена
+patch:
+  summary: Обновить данные стратегии
+  operationId: patchStrategy
+  tags:
+    - strategy
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PatchStrategy.yaml
+  responses:
+    '200':
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UzumAccountShopItemStrategy.yaml
+      description: Данные стратегии обновлены.
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Стратегия не найдена
+    '409':
+      $ref: ../components/responses/Conflict.yaml
+delete:
+  summary: Удалить стратегию
+  operationId: deleteStrategy
+  tags:
+    - strategy
+  responses:
+    '204':
+      description: Стратегия удалена.
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml

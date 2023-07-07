@@ -1,0 +1,13 @@
+content:
+  application/json:
+    schema:
+      required:
+        - shopItemId
+        - competitorId
+      properties:
+        shopItemId:
+          type: string
+          format: uuid
+        competitorId:
+          type: string
+          format: uuid

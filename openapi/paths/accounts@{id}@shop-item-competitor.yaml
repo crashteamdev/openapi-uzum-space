@@ -1,0 +1,37 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+post:
+  summary: Добавить конкурентный товар для отслеживания
+  operationId: addUzumAccountShopItemCompetitor
+  tags:
+    - item
+  requestBody:
+    $ref: ../components/requestBodies/AddUzumAccountShopItemCompetitor.yaml
+  responses:
+    '200':
+      description: Конкурентный товар добавлен
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      description: Достигнуто максимальное кол-во товаров в пуле
+delete:
+  summary: Удалить конкурентный товар из списка отслеживаемых
+  operationId: removeUzumAccountShopItemCompetitor
+  tags:
+    - item
+  requestBody:
+    $ref: ../components/requestBodies/RemoveUzumAccountShopItemCompetitor.yaml
+  responses:
+    '200':
+      description: Конкурентный товар удален
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml

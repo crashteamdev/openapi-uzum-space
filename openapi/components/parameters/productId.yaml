@@ -1,0 +1,6 @@
+name: productId
+in: query
+description: Item product id.
+schema:
+  type: integer
+  format: int64

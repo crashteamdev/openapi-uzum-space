@@ -1,0 +1,7 @@
+name: strategyId
+in: query
+description: Идентификатор стратегии вычисления цены в системе
+required: true
+schema:
+  type: integer
+  format: int64

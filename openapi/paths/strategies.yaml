@@ -1,0 +1,20 @@
+post:
+  summary: Добавить стратегию вычисления цены к товару
+  operationId: addStrategy
+  tags:
+    - strategy
+  parameters:
+    - $ref: ../components/parameters/requestId.yaml
+  requestBody:
+    $ref: ../components/requestBodies/AddStrategy.yaml
+  responses:
+    '201':
+      description: Стратегия добавлена
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UzumAccountShopItemStrategy.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml

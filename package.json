@@ -1,0 +1,14 @@
+{
+  "name": "openapi-uzum-analytics",
+  "version": "0.0.1",
+  "dependencies": {
+    "@redocly/cli": "1.0.0-beta.105",
+    "json-merge-patch": "^1.0.0",
+    "redoc-cli": "^0.13.17"
+  },
+  "scripts": {
+    "start": "openapi preview-docs",
+    "build": "openapi bundle -o web_deploy/openapi.yaml && openapi bundle -o web_deploy/openapi.json",
+    "validate": "openapi lint"
+  }
+}

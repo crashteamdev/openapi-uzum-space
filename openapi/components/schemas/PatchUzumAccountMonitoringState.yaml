@@ -1,0 +1,9 @@
+type: object
+required:
+  - enabled
+properties:
+  state:
+    type: string
+    enum:
+      - activate
+      - suspend

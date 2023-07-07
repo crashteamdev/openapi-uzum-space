@@ -1,0 +1,40 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+post:
+  summary: Добавить товар в пул для отслеживания
+  description: |
+    Добавление товара в пул ограниченно тарифом пользователя.
+  operationId: addUzumAccountShopItemPool
+  tags:
+    - item
+  requestBody:
+    $ref: ../components/requestBodies/AddUzumAccountShopItemIntoPool.yaml
+  responses:
+    '200':
+      description: Товар добавлен
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      description: Достигнуто максимальное кол-во товаров в пуле
+delete:
+  summary: Удалить товар из пула для отслеживания
+  operationId: removeUzumAccountShopItemFromPool
+  tags:
+    - item
+  requestBody:
+    $ref: ../components/requestBodies/RemoveUzumAccountShopItemFromPool.yaml
+  responses:
+    '204':
+      description: Товар удален
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+

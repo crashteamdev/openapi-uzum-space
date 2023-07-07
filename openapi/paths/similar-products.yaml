@@ -1,0 +1,24 @@
+get:
+  summary: Получение списка похожих товаров
+  operationId: getSimilarProducts
+  tags:
+    - other
+  parameters:
+    - $ref: ../components/parameters/requestId.yaml
+    - $ref: ../components/parameters/productId.yaml
+    - $ref: ../components/parameters/skuId.yaml
+  responses:
+    '200':
+      description: Получение списка похожих товаров Uzum
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/SimilarItem.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml

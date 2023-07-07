@@ -1,0 +1,30 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/idempotencyKey.yaml
+post:
+  summary: Создать платеж на выбранный тарифный план
+  description: |
+    Создание платежа может быть ограниченно текущим тарифным планом.
+    К примеру, пользователь может не иметь возможности понизить тарифный план, если выбранный план превышает текущие лимиты
+  operationId: createSubsriptionPayment
+  tags:
+    - payment
+  requestBody:
+    $ref: ../components/requestBodies/CreateSubscriptionPayment.yaml
+  responses:
+    '201':
+      description: Платеж создан
+      content:
+        application/json:
+          schema:
+            properties:
+              paymentUrl:
+                type: string
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      description: Достигнуто максимальное кол-во товаров в пуле

@@ -1,0 +1,14 @@
+type: object
+required:
+  - status
+properties:
+  minimumThreshold:
+    $ref: ./MoneyAmountMinor.yaml
+  maximumThreshold:
+    $ref: ./MoneyAmountMinor.yaml
+  step:
+    type: integer
+    format: int32
+    minimum: 1
+  discount:
+    $ref: ./Discount.yaml

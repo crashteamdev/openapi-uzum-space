@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+  email:
+    type: string
+  login:
+    type: string
+  lastUpdate:
+    type: string
+    format: date-time
+  monitorState:
+    $ref: ./MonitorState.yaml
+  updateState:
+    $ref: ./UpdateState.yaml
+  initializeState:
+    $ref: ./InitializeState.yaml
+

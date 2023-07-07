@@ -1,0 +1,41 @@
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+  productId:
+    type: integer
+    format: int64
+  skuId:
+    type: integer
+    format: int64
+  skuTitle:
+    type: string
+  name:
+    type: string
+  photoKey:
+    type: string
+  price:
+    $ref: ./MoneyAmount.yaml
+  barcode:
+    type: integer
+    format: int64
+  availableAmount:
+    type: integer
+    format: int64
+  minimumThreshold:
+    $ref: ./MoneyAmount.yaml
+  maximumThreshold:
+    $ref: ./MoneyAmount.yaml
+  step:
+    type: integer
+    format: int32
+  discount:
+    $ref: ./Discount.yaml
+  isInPool:
+    type: boolean
+  strategyType:
+    $ref: ./StrategyType.yaml
+  strategyId:
+    type: integer
+    format: int64

@@ -1,0 +1,17 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+post:
+  summary: Синхронизация данных аккаунта с системой Uzum
+  operationId: updateUzumAccountData
+  tags:
+    - account
+  responses:
+    '200':
+      description: Задача на обновление аккаунта добавлена
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '409':
+      $ref: ../components/responses/Conflict.yaml

@@ -1,0 +1,15 @@
+type: object
+required:
+  - minimumThreshold
+  - maximumThreshold
+  - strategyType
+  - step
+properties:
+  step:
+    type: integer
+  strategyType:
+    type: string
+  minimumThreshold:
+    $ref: ./MoneyAmount.yaml
+  maximumThreshold:
+    $ref: ./MoneyAmount.yaml

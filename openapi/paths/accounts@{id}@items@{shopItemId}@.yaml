@@ -1,0 +1,51 @@
+parameters:
+  - $ref: ../components/parameters/requestId.yaml
+  - $ref: ../components/parameters/uzumAccountId.yaml
+  - $ref: ../components/parameters/uzumAccountShopItemId.yaml
+get:
+  summary: Получить информацию по товару пользователя
+  operationId: getUzumAccountShopItem
+  tags:
+    - item
+  responses:
+    '200':
+      description: Получена информация о товаре пользователя
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UzumAccountShopItem.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+patch:
+  summary: Редактировать параметры изменения цены товара
+  operationId: patchUzumAccountShopitem
+  tags:
+    - item
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../components/schemas/PatchUzumAccountShopItem.yaml
+    required: true
+  responses:
+    '200':
+      description: Параметры успешно отредактированы
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UzumAccountShopItem.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      $ref: ../components/responses/NotFound.yaml
+

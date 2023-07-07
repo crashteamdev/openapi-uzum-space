@@ -1,0 +1,4 @@
+type: integer
+format: int64
+example: 1000
+minimum: 100

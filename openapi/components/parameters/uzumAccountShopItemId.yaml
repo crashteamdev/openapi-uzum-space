@@ -1,0 +1,5 @@
+name: shopItemId
+in: path
+required: true
+schema:
+  $ref: ../schemas/UzumAccountShopItemId.yaml

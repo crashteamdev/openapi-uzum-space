@@ -1,0 +1,46 @@
+get:
+  summary: Получение списка Uzum аккаунтов
+  operationId: getUzumAccounts
+  tags:
+    - account
+  parameters:
+    - $ref: ../components/parameters/requestId.yaml
+  responses:
+    '200':
+      description: Получен список Uzum аккаунтов
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: ../components/schemas/UzumAccount.yaml
+    '400':
+      $ref: ../components/responses/BadRequest.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
+    '404':
+      description: Аккаунты не найдены
+post:
+  summary: Добавить Uzum аккаунт
+  description: |
+    Добавление аккаунтов ограничено тарифом пользователя.
+  operationId: addUzumAccount
+  tags:
+    - account
+  parameters:
+    - $ref: ../components/parameters/requestId.yaml
+  requestBody:
+    $ref: ../components/requestBodies/AddUzumAccount.yaml
+  responses:
+    '201':
+      description: Аккаунт добавлен
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/UzumAccount.yaml
+    '401':
+      $ref: ../components/responses/Unauthorized.yaml
+    '403':
+      $ref: ../components/responses/Forbidden.yaml
