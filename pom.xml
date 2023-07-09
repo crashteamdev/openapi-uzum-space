@@ -19,7 +19,7 @@
     </description>
 
     <properties>
-        <default.package>dev.crashteam.openapi.openapi-space</default.package>
+        <default.package>dev.crashteam.openapi.space</default.package>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <slf4j-version>1.7.36</slf4j-version>
