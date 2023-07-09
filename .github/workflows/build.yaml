@@ -1,0 +1,10 @@
+name: Build Maven Artifact
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    uses: crashteamdev/jvm-workflows/.github/workflows/maven-swag-build.yml@v1
