@@ -10,16 +10,16 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>openapi-uzum-repricer</artifactId>
+    <artifactId>openapi-space</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
-    <name>Uzum repricer API</name>
+    <name>Space API</name>
     <description>Generates jar artifact containing compiled openapi classes based on generated openapi yaml files
     </description>
 
     <properties>
-        <default.package>dev.crashteam.openapi.uzumrepricer</default.package>
+        <default.package>dev.crashteam.openapi.openapi-space</default.package>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <slf4j-version>1.7.36</slf4j-version>
