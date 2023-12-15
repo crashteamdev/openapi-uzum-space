@@ -60,7 +60,7 @@ paths:
     $ref: './paths/similar-products.yaml'
   '/strategies/types':
     $ref: './paths/strategies@types.yaml'
-  '/strategies/{shopItemStrategyId}':
+  '/strategies/{shopItemId}':
     $ref: './paths/strategies@{shopItemId}.yaml'
   '/strategies':
     $ref: './paths/strategies.yaml'
