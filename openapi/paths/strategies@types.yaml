@@ -9,7 +9,9 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/StrategyType.yaml
+            type: array
+            items:
+              $ref: ../components/schemas/StrategyType.yaml
     '400':
       $ref: ../components/responses/BadRequest.yaml
     '401':

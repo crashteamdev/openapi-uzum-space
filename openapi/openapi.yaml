@@ -61,7 +61,7 @@ paths:
   '/strategies/types':
     $ref: './paths/strategies@types.yaml'
   '/strategies/{shopItemStrategyId}':
-    $ref: './paths/strategies@{shopItemStrategyId}.yaml'
+    $ref: './paths/strategies@{shopItemId}.yaml'
   '/strategies':
     $ref: './paths/strategies.yaml'
 

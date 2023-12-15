@@ -3,8 +3,16 @@ properties:
   id:
     type: integer
     format: int64
-  uzumAccountShopItemId:
-    $ref: ./UzumAccountShopItemId.yaml
-  strategy:
-    $ref: ../schemas/Strategy.yaml
-
+  step:
+    type: integer
+  strategyType:
+    type: string
+  minimumThreshold:
+    $ref: ./MoneyAmount.yaml
+  maximumThreshold:
+    $ref: ./MoneyAmount.yaml
+  discount:
+    $ref: ./Discount.yaml
+  keAccountShopItemId:
+    type: string
+    format: uuid

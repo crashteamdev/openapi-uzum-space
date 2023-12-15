@@ -13,3 +13,5 @@ properties:
     $ref: ./MoneyAmount.yaml
   maximumThreshold:
     $ref: ./MoneyAmount.yaml
+  discount:
+    $ref: ./Discount.yaml
