@@ -42,6 +42,8 @@ paths:
     $ref: './paths/accounts@{id}@shops@{shopId}@pool-items.yaml'
   '/accounts/{id}/pool-items':
     $ref: './paths/accounts@{id}@shop-item-pool.yaml'
+  '/accounts/{id}/pool-items/bulk':
+    $ref: './paths/accounts@{id}@shop-item-pool-bulk.yaml'
   '/accounts/pool-items-count':
     $ref: './paths/accounts@shop-item-pool-count.yaml'
   '/accounts/{id}/shop-item-competitor':
