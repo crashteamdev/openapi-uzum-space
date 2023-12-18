@@ -1,0 +1,8 @@
+type: object
+properties:
+  poolItems:
+    $ref: ./CountResponse.yaml
+  products:
+    $ref: ./CountResponse.yaml
+  skus:
+    $ref: ./CountResponse.yaml

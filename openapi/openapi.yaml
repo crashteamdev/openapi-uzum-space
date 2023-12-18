@@ -64,6 +64,10 @@ paths:
     $ref: './paths/strategies@{shopItemId}.yaml'
   '/strategies':
     $ref: './paths/strategies.yaml'
+  '/user/items-in-pool':
+    $ref: './paths/user@items-in-pool.yaml'
+  '/user/limits':
+    $ref: './paths/user@limits.yaml'
 
 components:
   securitySchemes:
