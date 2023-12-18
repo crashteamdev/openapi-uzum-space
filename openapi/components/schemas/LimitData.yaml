@@ -1,0 +1,23 @@
+type: object
+properties:
+  id:
+    type: string
+    format: userId
+  keAccountLimit:
+    type: integer
+    format: int64
+  keAccountLimitCurrent:
+    type: integer
+    format: int64
+  itemPoolLimit:
+    type: integer
+    format: int64
+  itemPoolLimitCurrent:
+    type: integer
+    format: int64
+  itemCompetitorLimit:
+    type: integer
+    format: int64
+  itemCompetitorLimitCurrent:
+    type: integer
+    format: int64

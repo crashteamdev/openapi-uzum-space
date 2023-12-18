@@ -42,6 +42,8 @@ paths:
     $ref: './paths/accounts@{id}@shops@{shopId}@pool-items.yaml'
   '/accounts/{id}/pool-items':
     $ref: './paths/accounts@{id}@shop-item-pool.yaml'
+  '/accounts/{id}/pool-items/bulk':
+    $ref: './paths/accounts@{id}@shop-item-pool-bulk.yaml'
   '/accounts/pool-items-count':
     $ref: './paths/accounts@shop-item-pool-count.yaml'
   '/accounts/{id}/shop-item-competitor':
@@ -64,6 +66,10 @@ paths:
     $ref: './paths/strategies@{shopItemId}.yaml'
   '/strategies':
     $ref: './paths/strategies.yaml'
+  '/user/items-in-pool':
+    $ref: './paths/user@items-in-pool.yaml'
+  '/user/limits':
+    $ref: './paths/user@limits.yaml'
 
 components:
   securitySchemes:
