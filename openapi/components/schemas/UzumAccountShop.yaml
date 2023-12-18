@@ -7,3 +7,5 @@ properties:
     type: string
   skuTitle:
     type: string
+  shopData:
+    $ref: ./ShopData.yaml
