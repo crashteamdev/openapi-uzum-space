@@ -3,10 +3,10 @@ properties:
   id:
     type: string
     format: userId
-  keAccountLimit:
+  uzumAccountLimit:
     type: integer
     format: int64
-  keAccountLimitCurrent:
+  uzumAccountLimitCurrent:
     type: integer
     format: int64
   itemPoolLimit:
