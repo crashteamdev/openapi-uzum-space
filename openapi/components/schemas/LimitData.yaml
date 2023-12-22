@@ -15,9 +15,3 @@ properties:
   itemPoolLimitCurrent:
     type: integer
     format: int64
-  itemCompetitorLimit:
-    type: integer
-    format: int64
-  itemCompetitorLimitCurrent:
-    type: integer
-    format: int64
