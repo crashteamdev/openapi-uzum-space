@@ -1,8 +1,7 @@
 type: object
 properties:
-  id:
+  userId:
     type: string
-    format: userId
   uzumAccountLimit:
     type: integer
     format: int64
