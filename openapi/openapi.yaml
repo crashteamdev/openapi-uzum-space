@@ -56,8 +56,6 @@ paths:
     $ref: './paths/user@subscription.yaml'
   '/subscriptions':
     $ref: './paths/subscriptions.yaml'
-  '/payment/subscription':
-    $ref: './paths/payment-subscription.yaml'
   '/similar/products':
     $ref: './paths/similar-products.yaml'
   '/strategies/types':
