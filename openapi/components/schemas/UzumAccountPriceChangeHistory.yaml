@@ -23,4 +23,6 @@ properties:
   changeTime:
     type: string
     format: date-time
+  photoKey:
+    type: string
 
