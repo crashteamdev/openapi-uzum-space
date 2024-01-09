@@ -3,9 +3,9 @@ content:
     schema:
       required:
         - strategy
-        - uzumAccountShopItemId
+        - accountShopItemId
       properties:
-        uzumAccountShopItemId:
+        accountShopItemId:
           type: string
           format: uuid
         strategy:
