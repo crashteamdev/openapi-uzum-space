@@ -13,6 +13,6 @@ properties:
     $ref: ./MoneyAmount.yaml
   discount:
     $ref: ./Discount.yaml
-  keAccountShopItemId:
+  accountShopItemId:
     type: string
     format: uuid
