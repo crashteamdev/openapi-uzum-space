@@ -1,0 +1,2299 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "CrashTeam Uzum Repricer API",
+    "description": "CrashTeamDev Uzum Repricer API\n",
+    "termsOfService": "http://marketdb.ru/terms-of-use/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{subdomain}.marketdb.ru/{version}",
+      "variables": {
+        "subdomain": {
+          "default": "napi"
+        },
+        "version": {
+          "enum": [
+            "v1"
+          ],
+          "default": "v1"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "paths": {
+    "/accounts": {
+      "get": {
+        "summary": "Получение списка Uzum аккаунтов",
+        "operationId": "getUzumAccounts",
+        "tags": [
+          "account"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список Uzum аккаунтов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UzumAccount"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунты не найдены"
+          }
+        }
+      },
+      "post": {
+        "summary": "Добавить Uzum аккаунт",
+        "description": "Добавление аккаунтов ограничено тарифом пользователя.\n",
+        "operationId": "addUzumAccount",
+        "tags": [
+          "account"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/AddUzumAccount"
+        },
+        "responses": {
+          "201": {
+            "description": "Аккаунт добавлен",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UzumAccount"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/accounts/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        }
+      ],
+      "get": {
+        "summary": "Получить данные аккаунта Uzum",
+        "operationId": "getUzumAccount",
+        "tags": [
+          "account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Получены данные аккаунта Uzum",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UzumAccount"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунт не найден"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Обновить данные аккаунта Uzum",
+        "operationId": "patchUzumAccount",
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchUzumAccount"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Данные аккаунта Uzum обновлены."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунт не найден"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить аккаунт Uzum",
+        "operationId": "deleteUzumAccount",
+        "tags": [
+          "account"
+        ],
+        "responses": {
+          "204": {
+            "description": "Аккаунт Uzum удален."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/update": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        }
+      ],
+      "post": {
+        "summary": "Синхронизация данных аккаунта с системой Uzum",
+        "operationId": "updateUzumAccountData",
+        "tags": [
+          "account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Задача на обновление аккаунта добавлена"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/shops": {
+      "get": {
+        "summary": "Получение списка магазинов аккаунта",
+        "operationId": "getUzumAccountShops",
+        "tags": [
+          "shop"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список магазинов Uzum для указанного аккаунта",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UzumAccountShop"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунты не найдены"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/monitor": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        }
+      ],
+      "patch": {
+        "summary": "Переключить состояние мониторинга аккаунта Uzum",
+        "operationId": "patchUzumAccountMonitoringState",
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchUzumAccountMonitoringState"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Состояние мониторинга изменено"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунт не найден"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/initialization": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        }
+      ],
+      "patch": {
+        "summary": "Запустить работу по инициализации аккаунта Uzum",
+        "operationId": "patchUzumAccountInitializationState",
+        "tags": [
+          "account"
+        ],
+        "responses": {
+          "200": {
+            "description": "Инициализация аккаунта запущена в работу"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунт не найден"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/price-history": {
+      "get": {
+        "summary": "Получение истории изменений цены товаров на Uzum аккаунте",
+        "operationId": "getUzumAccountShopItemPriceChangeHistory",
+        "tags": [
+          "account"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountId"
+          },
+          {
+            "$ref": "#/components/parameters/collectionLimit"
+          },
+          {
+            "$ref": "#/components/parameters/collectionOffset"
+          },
+          {
+            "$ref": "#/components/parameters/collectionFilter"
+          },
+          {
+            "$ref": "#/components/parameters/collectionSort"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список истории изменений цены товаров",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UzumAccountPriceChangeHistory"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Pagination-Total": {
+                "$ref": "#/components/headers/Pagination-Total"
+              },
+              "Pagination-Limit": {
+                "$ref": "#/components/headers/Pagination-Limit"
+              },
+              "Pagination-Offset": {
+                "$ref": "#/components/headers/Pagination-Offset"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "История не найдена"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/items/{shopItemId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountShopItemId"
+        }
+      ],
+      "get": {
+        "summary": "Получить информацию по товару пользователя",
+        "operationId": "getUzumAccountShopItem",
+        "tags": [
+          "item"
+        ],
+        "responses": {
+          "200": {
+            "description": "Получена информация о товаре пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UzumAccountShopItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/shops/{shopId}/items": {
+      "get": {
+        "summary": "Получение списка товаров магазина пользователя",
+        "operationId": "getUzumAccountShopItems",
+        "tags": [
+          "item"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountShopId"
+          },
+          {
+            "$ref": "#/components/parameters/collectionLimit"
+          },
+          {
+            "$ref": "#/components/parameters/collectionOffset"
+          },
+          {
+            "$ref": "#/components/parameters/collectionFilter"
+          },
+          {
+            "$ref": "#/components/parameters/collectionSort"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список товаров магазина пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UzumAccountShopItem"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Pagination-Total": {
+                "$ref": "#/components/headers/Pagination-Total"
+              },
+              "Pagination-Limit": {
+                "$ref": "#/components/headers/Pagination-Limit"
+              },
+              "Pagination-Offset": {
+                "$ref": "#/components/headers/Pagination-Offset"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Товары не найдены"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/shops/{shopId}/pool-items": {
+      "get": {
+        "summary": "Получение списка товаров магазина пользователя в пуле для отслеживания",
+        "operationId": "getUzumAccountShopItemsPool",
+        "tags": [
+          "item"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountShopId"
+          },
+          {
+            "$ref": "#/components/parameters/collectionLimit"
+          },
+          {
+            "$ref": "#/components/parameters/collectionOffset"
+          },
+          {
+            "$ref": "#/components/parameters/collectionFilter"
+          },
+          {
+            "$ref": "#/components/parameters/collectionSort"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список товаров магазина пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UzumAccountShopItem"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Pagination-Total": {
+                "$ref": "#/components/headers/Pagination-Total"
+              },
+              "Pagination-Limit": {
+                "$ref": "#/components/headers/Pagination-Limit"
+              },
+              "Pagination-Offset": {
+                "$ref": "#/components/headers/Pagination-Offset"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Товары не найдены"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/pool-items": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        }
+      ],
+      "post": {
+        "summary": "Добавить товар в пул для отслеживания",
+        "description": "Добавление товара в пул ограниченно тарифом пользователя.\n",
+        "operationId": "addUzumAccountShopItemPool",
+        "tags": [
+          "item"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/AddUzumAccountShopItemIntoPool"
+        },
+        "responses": {
+          "200": {
+            "description": "Товар добавлен"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "description": "Достигнуто максимальное кол-во товаров в пуле"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить товар из пула для отслеживания",
+        "operationId": "removeUzumAccountShopItemFromPool",
+        "tags": [
+          "item"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/RemoveUzumAccountShopItemFromPool"
+        },
+        "responses": {
+          "204": {
+            "description": "Товар удален"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/pool-items/bulk": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        }
+      ],
+      "post": {
+        "summary": "Добавить товары в пул для отслеживания",
+        "description": "Добавление товаров в пул ограниченно тарифом пользователя.\n",
+        "operationId": "addKeAccountShopItemPoolBulk",
+        "tags": [
+          "item"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/AddUzumAccountShopItemIntoPoolBulk"
+        },
+        "responses": {
+          "200": {
+            "description": "Товары добавлены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "description": "Достигнуто максимальное кол-во товаров в пуле"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить товары из пула для отслеживания",
+        "operationId": "removeKeAccountShopItemFromPoolBulk",
+        "tags": [
+          "item"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/RemoveUzumAccountShopItemFromPoolBulk"
+        },
+        "responses": {
+          "204": {
+            "description": "Товары удалены"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/accounts/pool-items-count": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        }
+      ],
+      "get": {
+        "summary": "Получить общее кол-во товаров в пуле на отслеживание",
+        "operationId": "getAccountShopItemPoolCount",
+        "tags": [
+          "item"
+        ],
+        "responses": {
+          "200": {
+            "description": "Кол-во товаров в пуле",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/shop-item-competitor": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        }
+      ],
+      "post": {
+        "summary": "Добавить конкурентный товар для отслеживания",
+        "operationId": "addUzumAccountShopItemCompetitor",
+        "tags": [
+          "item"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/AddUzumAccountShopItemCompetitor"
+        },
+        "responses": {
+          "200": {
+            "description": "Конкурентный товар добавлен"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "description": "Достигнуто максимальное кол-во товаров в пуле"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить конкурентный товар из списка отслеживаемых",
+        "operationId": "removeUzumAccountShopItemCompetitor",
+        "tags": [
+          "item"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/RemoveUzumAccountShopItemCompetitor"
+        },
+        "responses": {
+          "200": {
+            "description": "Конкурентный товар удален"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/shops/{shopId}/items/{shopItemId}/competitor-items": {
+      "get": {
+        "summary": "Получение списка назначенных конкурентов товара",
+        "operationId": "getUzumAccountCompetitorShopItems",
+        "tags": [
+          "item"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountShopId"
+          },
+          {
+            "$ref": "#/components/parameters/uzumAccountShopItemId"
+          },
+          {
+            "$ref": "#/components/parameters/collectionLimit"
+          },
+          {
+            "$ref": "#/components/parameters/collectionOffset"
+          },
+          {
+            "$ref": "#/components/parameters/collectionFilter"
+          },
+          {
+            "$ref": "#/components/parameters/collectionSort"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список назначенных конкурентов товара",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UzumAccountCompetitorShopItem"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Pagination-Total": {
+                "$ref": "#/components/headers/Pagination-Total"
+              },
+              "Pagination-Limit": {
+                "$ref": "#/components/headers/Pagination-Limit"
+              },
+              "Pagination-Offset": {
+                "$ref": "#/components/headers/Pagination-Offset"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Товары не найдены"
+          }
+        }
+      }
+    },
+    "/accounts/{id}/shops/{shopId}/items/{shopItemId}/similar": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountShopId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountShopItemId"
+        }
+      ],
+      "get": {
+        "summary": "Получение списка возможных конкурентных товаров",
+        "operationId": "getUzumAccountShopItemSimilar",
+        "tags": [
+          "item"
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список возможных конкурентных товаров",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SimilarItem"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Pagination-Total": {
+                "$ref": "#/components/headers/Pagination-Total"
+              },
+              "Pagination-Limit": {
+                "$ref": "#/components/headers/Pagination-Limit"
+              },
+              "Pagination-Offset": {
+                "$ref": "#/components/headers/Pagination-Offset"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Товары не найдены"
+          }
+        }
+      }
+    },
+    "/user/subscription": {
+      "get": {
+        "summary": "Информации о подписке пользователя",
+        "operationId": "getUserSubscription",
+        "tags": [
+          "subscription"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получена информация о подписке пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountSubscription"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунты не найдены"
+          }
+        }
+      }
+    },
+    "/subscriptions": {
+      "get": {
+        "summary": "Получение списка подписок",
+        "operationId": "getSubscriptions",
+        "tags": [
+          "subscription"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получен список подписок",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subscription"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/similar/products": {
+      "get": {
+        "summary": "Получение списка похожих товаров",
+        "operationId": "getSimilarProducts",
+        "tags": [
+          "other"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          },
+          {
+            "$ref": "#/components/parameters/productId"
+          },
+          {
+            "$ref": "#/components/parameters/skuId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получение списка похожих товаров Uzum",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SimilarItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/strategies/types": {
+      "get": {
+        "summary": "Получить типы стратегий",
+        "operationId": "getStrategyTypes",
+        "tags": [
+          "strategy"
+        ],
+        "responses": {
+          "200": {
+            "description": "Получена информация о типах стратегий",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StrategyType"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/strategies/{shopItemId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/requestId"
+        },
+        {
+          "$ref": "#/components/parameters/uzumAccountShopItemId"
+        }
+      ],
+      "get": {
+        "summary": "Получить данные по стратегии",
+        "operationId": "getStrategy",
+        "tags": [
+          "strategy"
+        ],
+        "responses": {
+          "200": {
+            "description": "Получены данные стратегии",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UzumAccountShopItemStrategy"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Стратегия не найдена"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Обновить данные стратегии",
+        "operationId": "patchStrategy",
+        "tags": [
+          "strategy"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchStrategy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UzumAccountShopItemStrategy"
+                }
+              }
+            },
+            "description": "Данные стратегии обновлены."
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Стратегия не найдена"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Удалить стратегию",
+        "operationId": "deleteStrategy",
+        "tags": [
+          "strategy"
+        ],
+        "responses": {
+          "204": {
+            "description": "Стратегия удалена."
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/strategies": {
+      "post": {
+        "summary": "Добавить стратегию вычисления цены к товару",
+        "operationId": "addStrategy",
+        "tags": [
+          "strategy"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/requestId"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/AddStrategy"
+        },
+        "responses": {
+          "201": {
+            "description": "Стратегия добавлена",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UzumAccountShopItemStrategy"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/user/items-in-pool": {
+      "get": {
+        "summary": "Получить информацию об общем количестве товаров в пуле",
+        "operationId": "getAccountShopItemsInPool",
+        "tags": [
+          "subscription"
+        ],
+        "responses": {
+          "200": {
+            "description": "Получена информация об общем количестве товаров в пуле",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/user/limits": {
+      "get": {
+        "summary": "Получить данные о лимитах пользователя",
+        "operationId": "getUserLimits",
+        "tags": [
+          "subscription"
+        ],
+        "responses": {
+          "200": {
+            "description": "Получены данные о лимитах пользователя",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LimitData"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "description": "Аккаунт не найден"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "description": "Для аутентификации вызовов мы используем [JWT](https://jwt.io). Cоответствующий ключ передается в заголовке.\n```shell\n  Authorization: Bearer {TOKENIZATION|PRIVATE_JWT}\n```\n",
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "parameters": {
+      "requestId": {
+        "name": "X-Request-ID",
+        "in": "header",
+        "description": "Уникальный идентификатор запроса к системе",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "uzumAccountId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UzumAccountId"
+        }
+      },
+      "collectionLimit": {
+        "name": "limit",
+        "in": "query",
+        "description": "The collection items limit.",
+        "schema": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      },
+      "collectionOffset": {
+        "name": "offset",
+        "in": "query",
+        "description": "The collection items offset.",
+        "schema": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "collectionFilter": {
+        "name": "filter",
+        "in": "query",
+        "description": "The collection items filter requires a special format.\nUse \",\" for multiple allowed values.  Use \";\" for multiple fields.\nSee the [filter guide](https://api-reference.rebilly.com/#section/Using-filter-with-collections) for more options and examples about this format.\n",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "collectionSort": {
+        "name": "sort",
+        "in": "query",
+        "description": "The collection items sort field and order (prefix with \"-\" for descending sort).",
+        "style": "form",
+        "explode": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "uzumAccountShopItemId": {
+        "name": "shopItemId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UzumAccountShopItemId"
+        }
+      },
+      "uzumAccountShopId": {
+        "name": "shopId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UzumAccountShopId"
+        }
+      },
+      "productId": {
+        "name": "productId",
+        "in": "query",
+        "description": "Item product id.",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "skuId": {
+        "name": "skuId",
+        "in": "query",
+        "description": "Product item sku id.",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "schemas": {
+      "MonitorState": {
+        "type": "string",
+        "enum": [
+          "suspended",
+          "active"
+        ]
+      },
+      "UpdateState": {
+        "type": "string",
+        "enum": [
+          "not_started",
+          "in_progress",
+          "finished",
+          "error"
+        ]
+      },
+      "InitializeState": {
+        "type": "string",
+        "enum": [
+          "not_started",
+          "in_progress",
+          "finished",
+          "error"
+        ]
+      },
+      "UzumAccount": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "login": {
+            "type": "string"
+          },
+          "lastUpdate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "monitorState": {
+            "$ref": "#/components/schemas/MonitorState"
+          },
+          "updateState": {
+            "$ref": "#/components/schemas/UpdateState"
+          },
+          "initializeState": {
+            "$ref": "#/components/schemas/InitializeState"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 600,
+            "description": "The HTTP status code."
+          },
+          "error": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "description": "A URI reference [[RFC3986](https://tools.ietf.org/html/rfc3986)] that identifies the problem type. It should provide human-readable documentation for the problem type. When this member is not present, its value is assumed to be \"about:blank\"."
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization."
+          }
+        }
+      },
+      "UzumAccountId": {
+        "description": "Идентификатор Uzum аккаунта в системе",
+        "type": "string",
+        "format": "uuid",
+        "readOnly": true
+      },
+      "PatchUzumAccount": {
+        "type": "object",
+        "required": [
+          "login",
+          "password"
+        ],
+        "properties": {
+          "login": {
+            "description": "Логин пользователя Uzum.",
+            "type": "string"
+          },
+          "password": {
+            "description": "Пароль пользователя Uzum.",
+            "type": "string"
+          }
+        }
+      },
+      "CountResponse": {
+        "type": "number",
+        "example": 100
+      },
+      "ShopData": {
+        "type": "object",
+        "properties": {
+          "poolItems": {
+            "$ref": "#/components/schemas/CountResponse"
+          },
+          "products": {
+            "$ref": "#/components/schemas/CountResponse"
+          },
+          "skus": {
+            "$ref": "#/components/schemas/CountResponse"
+          }
+        }
+      },
+      "UzumAccountShop": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "skuTitle": {
+            "type": "string"
+          },
+          "shopData": {
+            "$ref": "#/components/schemas/ShopData"
+          }
+        }
+      },
+      "PatchUzumAccountMonitoringState": {
+        "type": "object",
+        "required": [
+          "enabled"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "activate",
+              "suspend"
+            ]
+          }
+        }
+      },
+      "MoneyAmount": {
+        "type": "number",
+        "format": "double",
+        "example": 10
+      },
+      "UzumAccountPriceChangeHistory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "skuId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "shopName": {
+            "type": "string"
+          },
+          "itemName": {
+            "type": "string"
+          },
+          "oldPrice": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "newPrice": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "barcode": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "changeTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "photoKey": {
+            "type": "string"
+          }
+        }
+      },
+      "UzumAccountShopItemId": {
+        "description": "Идентификатор Uzum товара в системе",
+        "type": "string",
+        "format": "uuid",
+        "readOnly": true
+      },
+      "Discount": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "UzumAccountShopItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "skuId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "skuTitle": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "photoKey": {
+            "type": "string"
+          },
+          "price": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "barcode": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "availableAmount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "minimumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "maximumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "step": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/Discount"
+          },
+          "isInPool": {
+            "type": "boolean"
+          },
+          "availableCompetitors": {
+            "type": "integer"
+          },
+          "competitorsCurrent": {
+            "type": "integer"
+          }
+        }
+      },
+      "UzumAccountShopId": {
+        "description": "Идентификатор Uzum магазина в системе",
+        "type": "string",
+        "format": "uuid",
+        "readOnly": true
+      },
+      "ShopItemId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "ShopItemRef": {
+        "type": "object",
+        "properties": {
+          "shopId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "shopItemId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "UzumAccountCompetitorShopItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "skuId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "price": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "availableAmount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "photoKey": {
+            "type": "string"
+          }
+        }
+      },
+      "SimilarItem": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "skuId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "photoKey": {
+            "type": "string"
+          },
+          "price": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          }
+        }
+      },
+      "SubscriptionPlan": {
+        "type": "string",
+        "enum": [
+          "default",
+          "advanced",
+          "pro"
+        ]
+      },
+      "AccountSubscription": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "$ref": "#/components/schemas/SubscriptionPlan"
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/SubscriptionPlan"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "StrategyType": {
+        "type": "string",
+        "enum": [
+          "close_to_minimal",
+          "quantity_dependent",
+          "equal_price"
+        ]
+      },
+      "UzumAccountShopItemStrategy": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "step": {
+            "type": "integer"
+          },
+          "strategyType": {
+            "type": "string"
+          },
+          "minimumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "maximumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/Discount"
+          },
+          "accountShopItemId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "competitorAvailableAmount": {
+            "type": "integer"
+          },
+          "competitorSalesAmount": {
+            "type": "integer"
+          },
+          "changeNotAvailableItemPrice": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CloseToMinimalStrategy": {
+        "type": "object",
+        "required": [
+          "minimumThreshold",
+          "maximumThreshold",
+          "strategyType",
+          "step"
+        ],
+        "properties": {
+          "step": {
+            "type": "integer"
+          },
+          "strategyType": {
+            "type": "string"
+          },
+          "minimumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "maximumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/Discount"
+          },
+          "competitorAvailableAmount": {
+            "description": "Пороговое кол-во товара у конкурента, по которому мы определяем, менять ли цену. Если null, то настройка игнорируется",
+            "type": "integer"
+          },
+          "competitorSalesAmount": {
+            "description": "Пороговое кол-во продаж у конкурента. Если оно меньше или равно указанному значению, то цена не меняется. При null настройка игнорируется",
+            "type": "integer"
+          },
+          "changeNotAvailableItemPrice": {
+            "description": "Настройка о том, менять ли цену у товара, которого нет в наличии",
+            "type": "boolean"
+          }
+        }
+      },
+      "QuantityDependentStrategy": {
+        "type": "object",
+        "required": [
+          "minimumThreshold",
+          "maximumThreshold",
+          "strategyType",
+          "step"
+        ],
+        "properties": {
+          "step": {
+            "type": "integer"
+          },
+          "strategyType": {
+            "type": "string"
+          },
+          "minimumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "maximumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/Discount"
+          },
+          "competitorAvailableAmount": {
+            "description": "Пороговое кол-во товара у конкурента, по которому мы определяем, менять ли цену. Если null, то настройка игнорируется",
+            "type": "integer"
+          },
+          "competitorSalesAmount": {
+            "description": "Пороговое кол-во продаж у конкурента. Если оно меньше или равно указанному значению, то цена не меняется. При null настройка игнорируется",
+            "type": "integer"
+          },
+          "changeNotAvailableItemPrice": {
+            "description": "Настройка о том, менять ли цену у товара, которого нет в наличии",
+            "type": "boolean"
+          }
+        }
+      },
+      "EqualPriceStrategy": {
+        "type": "object",
+        "required": [
+          "minimumThreshold",
+          "maximumThreshold",
+          "strategyType"
+        ],
+        "properties": {
+          "strategyType": {
+            "type": "string"
+          },
+          "minimumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "maximumThreshold": {
+            "$ref": "#/components/schemas/MoneyAmount"
+          },
+          "discount": {
+            "$ref": "#/components/schemas/Discount"
+          },
+          "competitorAvailableAmount": {
+            "description": "Пороговое кол-во товара у конкурента, по которому мы определяем, менять ли цену. Если null, то настройка игнорируется",
+            "type": "integer"
+          },
+          "competitorSalesAmount": {
+            "description": "Пороговое кол-во продаж у конкурента. Если оно меньше или равно указанному значению, то цена не меняется. При null настройка игнорируется",
+            "type": "integer"
+          },
+          "changeNotAvailableItemPrice": {
+            "description": "Настройка о том, менять ли цену у товара, которого нет в наличии",
+            "type": "boolean"
+          }
+        }
+      },
+      "Strategy": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CloseToMinimalStrategy"
+          },
+          {
+            "$ref": "#/components/schemas/QuantityDependentStrategy"
+          },
+          {
+            "$ref": "#/components/schemas/EqualPriceStrategy"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "strategyType",
+          "mapping": {
+            "close_to_minimal": "#/components/schemas/CloseToMinimalStrategy",
+            "quantity_dependent": "#/components/schemas/QuantityDependentStrategy",
+            "equal_price": "#/components/schemas/EqualPriceStrategy"
+          }
+        }
+      },
+      "PatchStrategy": {
+        "type": "object",
+        "properties": {
+          "strategy": {
+            "$ref": "#/components/schemas/Strategy"
+          }
+        }
+      },
+      "LimitData": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "accountLimit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "accountLimitCurrent": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "itemPoolLimit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "itemPoolLimitCurrent": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Переданы ошибочные данные",
+        "content": {
+          "application/json": {
+            "schema": {
+              "description": "Ошибка в переданных данных",
+              "type": "object",
+              "required": [
+                "code"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "invalidRequest"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Несанкционированный доступ, использовались неверные учетные данные.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Доступ запрещен.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "Conflict.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "AddUzumAccount": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "login",
+                "password"
+              ],
+              "properties": {
+                "login": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AddUzumAccountShopItemIntoPool": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "shopId",
+                "shopItemId"
+              ],
+              "properties": {
+                "shopId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "shopItemId": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "RemoveUzumAccountShopItemFromPool": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "shopId",
+                "shopItemId"
+              ],
+              "properties": {
+                "shopId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "shopItemId": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AddUzumAccountShopItemIntoPoolBulk": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "shopId",
+                "shopItemIds"
+              ],
+              "properties": {
+                "shopId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "shopItemIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShopItemId"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "RemoveUzumAccountShopItemFromPoolBulk": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "shopId",
+                "shopItemIds"
+              ],
+              "properties": {
+                "shopId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "shopItemIds": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShopItemId"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AddUzumAccountShopItemCompetitor": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "shopItemRef"
+              ],
+              "properties": {
+                "shopItemRef": {
+                  "$ref": "#/components/schemas/ShopItemRef"
+                },
+                "url": {
+                  "description": "link to the product on Uzum",
+                  "type": "string"
+                },
+                "competitorProductId": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "competitorSkuId": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "RemoveUzumAccountShopItemCompetitor": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "shopItemId",
+                "competitorId"
+              ],
+              "properties": {
+                "shopItemId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "competitorId": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AddStrategy": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "required": [
+                "strategy",
+                "accountShopItemId"
+              ],
+              "properties": {
+                "accountShopItemId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "strategy": {
+                  "$ref": "#/components/schemas/Strategy"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "headers": {
+      "Pagination-Total": {
+        "description": "Total items count.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "Pagination-Limit": {
+        "description": "Items per page limit.",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "Pagination-Offset": {
+        "description": "Pagination offset.",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
