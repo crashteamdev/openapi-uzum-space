@@ -16,3 +16,9 @@ properties:
   accountShopItemId:
     type: string
     format: uuid
+  competitorAvailableAmount:
+    type: integer
+  competitorSalesAmount:
+    type: integer
+  changeNotAvailableItemPrice:
+    type: boolean
