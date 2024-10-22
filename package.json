@@ -2,7 +2,7 @@
   "name": "openapi-uzum-analytics",
   "version": "0.0.1",
   "dependencies": {
-    "@redocly/cli": "1.0.0-beta.105",
+    "@redocly/cli": "1.25.8",
     "json-merge-patch": "^1.0.0",
     "redoc-cli": "^0.13.17"
   },
